@@ -11,4 +11,19 @@
     <string name="action_example">Add Event</string>
 
     <string name="action_settings">Settings</string>
+
+
+    <!-- categories -->
+    <string name="category_dashboard">Dashboard</string>
+    <string name="category_glucose">Glucose</string>
+    <string name="category_food">Food</string>
+    <string name="category_training">Training</string>
+    <string name="category_medication">Medication</string>
+    <string name="category_statistics"> Statistics</string>
+    <string name="category_Reminders">Reminders</string>
+    <string name="category_setting">Settings</string>
+
+
+
+
 </resources>

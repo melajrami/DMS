@@ -8,15 +8,18 @@ import android.view.Display;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.melnykov.fab.FloatingActionButton;
 
 import graduate.us.dms.R;
+import graduate.us.dms.db.models.Profile;
 //import graduate.us.dms.services.auths.AppFacebookAuth;
 //import graduate.us.dms.services.auths.AppGoogleAuth;
 
@@ -27,7 +30,11 @@ public class Login_Activity extends ActionBarActivity {
     LinearLayout ll_loginForm;
     RelativeLayout ll_logoLoading;
     FloatingActionButton btn_fb, btn_google, btn_next;
+    Button btn_signUp;
     Display display;
+
+   String p_name,p_email;
+
     int screenHeight, screenWidth;
     float text_size;
   //  AppGoogleAuth googleAuth;
@@ -54,6 +61,16 @@ public class Login_Activity extends ActionBarActivity {
 
         setContentView(R.layout.activity_login);
 
+
+         if(isRegistered()){
+
+             Intent intent = new Intent(Login_Activity.this, MainActivity.class);
+             intent.putExtra("Name",p_name);
+             intent.putExtra("Email",p_email);
+             startActivity(intent);
+         }
+
+
         activity = this;
         // initialize Google Auth, Facebook does not need to initialize, it makes login directly
       //  googleAuth = new AppGoogleAuth(activity);
@@ -61,7 +78,7 @@ public class Login_Activity extends ActionBarActivity {
    //     initializeResponsiveScreenParameters();
         initializeViews();
     //    ResizeViews();
-   //     hideLoginForm();
+    //    hideLoginForm();
 
 
 
@@ -69,13 +86,46 @@ public class Login_Activity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Login_Activity.this, MainActivity.class);
+                intent.putExtra("Name",p_name);
+                intent.putExtra("Email",p_email);
                 startActivity(intent);
             }
         });
 
+        btn_signUp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+             //   OpenActivityWithID(Login_Activity.this, RegisterActivity.class, Long ID);
+
+
+                Intent intent = new Intent(Login_Activity.this, RegisterActivity.class);
+                startActivity(intent);
+
+
+            }
+        });
     }
 
 
+private boolean isRegistered(){
+    try {
+        Long ID_0 = new Long(1);
+        Profile profile = Profile.load(Profile.class, ID_0);
+        String name = profile.Name;
+        String email = profile.Email;
+        String password = profile.Password;
+
+        p_name = name;
+        p_email=email;
+
+        Toast.makeText(Login_Activity.this, "Name : " + name + "  -Email : " + email + "  -Password " + password, Toast.LENGTH_LONG).show();
+        return true;
+    }catch(Exception e){
+
+    } return false;
+
+}
 
 
 
@@ -85,7 +135,7 @@ public class Login_Activity extends ActionBarActivity {
        // tv_loading = (TextView) findViewById(R.id.tv_login_loading);
         et_username = (EditText) findViewById(R.id.et_login_username);
         et_pass = (EditText) findViewById(R.id.et_login_pass);
-      //  btn_fb = (FloatingActionButton) findViewById(R.id.fab_login_facebook);
+        btn_signUp = (Button) findViewById(R.id.btn_signUp);
       //  btn_google = (FloatingActionButton) findViewById(R.id.fab_login_google);
         btn_next = (FloatingActionButton) findViewById(R.id.fab_login_next);
      //   ll_loginForm = (LinearLayout) findViewById(R.id.ll_login_form);

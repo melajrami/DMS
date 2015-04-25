@@ -5,8 +5,10 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.EditText;
 
 import com.fourmob.datetimepicker.date.DatePickerDialog;
 import com.rengwuxian.materialedittext.MaterialEditText;
@@ -94,6 +96,7 @@ public class BaseFragment extends Fragment {
 
     }
 
+
     public void SetDateControl_New(final MaterialEditText dateControl) {
         dateControl.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -117,6 +120,31 @@ public class BaseFragment extends Fragment {
 
     }
 
+    public void SetDateControl_New(final EditText dateControl) {
+
+        dateControl.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                Calendar calendar = Calendar.getInstance();
+                DatePickerDialog pickerDialog = DatePickerDialog.newInstance(new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePickerDialog datePickerDialog, int i, int i2, int i3) {
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.set(i, i2, i3);
+                        dateControl.setText(ConstantVariable.getDateString(calendar.getTime()));
+                     //   dateControl.setTag(calendar.getTimeInMillis());
+                    }
+                }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH), false);
+                pickerDialog.show(getActivity().getSupportFragmentManager(), "MM");
+                return false;
+            }
+        });
+
+
+
+    }
+
+
     public void SetTimeControl_New(final MaterialEditText dateControl) {
         dateControl.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -138,6 +166,31 @@ public class BaseFragment extends Fragment {
                 v.clearFocus();
             }
         });
+
+    }
+
+    public void SetTimeControl_New(final EditText dateControl) {
+        dateControl.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                Calendar calendar = Calendar.getInstance();
+                TimePickerDialog timePickerDialog = TimePickerDialog.newInstance(new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(RadialPickerLayout radialPickerLayout, int i, int i2) {
+                        Calendar calendar = Calendar.getInstance();
+                        calendar.set(Calendar.HOUR_OF_DAY, i);
+                        calendar.set(Calendar.MINUTE, i2);
+                        dateControl.setText(ConstantVariable.getTimeString(calendar.getTime()));
+                        dateControl.setTag(calendar.getTimeInMillis());
+                    }
+                }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), false, false);
+                timePickerDialog.show(getActivity().getSupportFragmentManager(), "MM");
+                return false;
+            }
+        });
+
+
+
 
     }
 

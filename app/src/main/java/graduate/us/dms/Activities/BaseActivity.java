@@ -14,27 +14,19 @@ import com.mikepenz.iconics.typeface.FontAwesome;
 import com.mikepenz.materialdrawer.Drawer;
 import com.mikepenz.materialdrawer.accountswitcher.AccountHeader;
 import com.mikepenz.materialdrawer.model.PrimaryDrawerItem;
+import com.mikepenz.materialdrawer.model.ProfileDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IDrawerItem;
 import com.mikepenz.materialdrawer.model.interfaces.IProfile;
 import com.mikepenz.materialdrawer.model.interfaces.Nameable;
 
 import graduate.us.dms.ConstantApp.AppLog;
 import graduate.us.dms.ConstantApp.ConstantVariable;
-import graduate.us.dms.R;
-//import ae.ac.adec.coursefollowup.fragments.CalenderFragment;
-//import ae.ac.adec.coursefollowup.fragments.CoursesFragment;
 import graduate.us.dms.Fragments.DashboardFragment;
 import graduate.us.dms.Fragments.GlucoseFragment;
-//import ae.ac.adec.coursefollowup.fragments.HolidayFragment;
-//import ae.ac.adec.coursefollowup.fragments.NoteFragment;
-//import ae.ac.adec.coursefollowup.fragments.ProfileFragment;
-//import ae.ac.adec.coursefollowup.fragments.SearchFragment;
-//import ae.ac.adec.coursefollowup.fragments.SemesterFragment;
-//import ae.ac.adec.coursefollowup.fragments.SettingFragment;
-//import ae.ac.adec.coursefollowup.fragments.TabFragment;
-//import ae.ac.adec.coursefollowup.fragments.TaskFragment;
-//import ae.ac.adec.coursefollowup.fragments.YearsFragment;
+import graduate.us.dms.Fragments.SettingsFragment;
+import graduate.us.dms.R;
 import graduate.us.dms.view.event.IRemovableShadowToolBarShadow;
+
 
 /**
  * Created by Tareq on 02/27/2015.
@@ -72,21 +64,29 @@ public class BaseActivity   extends ActionBarActivity implements IRemovableShado
             shadowView.setVisibility(View.VISIBLE);
         }
     }
-
-    public void Drawable(){
+IProfile selectedProfile ;
+    public void Drawable(String name , String email){
         // Create the AccountHeader
      //   String Name="";
      //   String Email="";
-        headerResult = new AccountHeader()
+       selectedProfile =  new ProfileDrawerItem().withName(name).withEmail(email).withIcon(getResources().getDrawable(R.drawable.profile));
+
+               headerResult = new AccountHeader()
                 .withActivity(this)
                 .withHeaderBackground(R.drawable.logo_main)
-//                .addProfiles(
-//                        new ProfileDrawerItem().withName(Name).withEmail(Email).withIcon(getResources().getDrawable(R.drawable.profile))
-//                )
+                .addProfiles(
+                        selectedProfile,
+                                    new ProfileDrawerItem().withName("BBBB").withEmail("HHH@hotmail.com").withIcon(getResources().getDrawable(R.drawable.profile))
+
+
+        )
                 .withOnAccountHeaderListener(new AccountHeader.OnAccountHeaderListener() {
                     @Override
                     public void onProfileChanged(View view, IProfile profile) {
+
                         selectItem(ConstantVariable.Category.Profile.id);
+                        selectedProfile=profile;
+
                     }
                 })
                 .build();
@@ -98,6 +98,7 @@ public class BaseActivity   extends ActionBarActivity implements IRemovableShado
                 .withAccountHeader(headerResult)
                 .withHeader(R.layout.header)
                 .addDrawerItems(
+
 
                         new PrimaryDrawerItem().withName(R.string.category_dashboard).withIdentifier(ConstantVariable.Category.Dashboard.id).withIcon(FontAwesome.Icon.faw_android),
                         new PrimaryDrawerItem().withName(R.string.category_glucose).withIdentifier(ConstantVariable.Category.Glucose.id).withIcon(FontAwesome.Icon.faw_android),
@@ -148,6 +149,12 @@ public class BaseActivity   extends ActionBarActivity implements IRemovableShado
         }else  if (filter == ConstantVariable.Category.Glucose.id) {
             fragment = new GlucoseFragment();
           //  args.putString(TabFragment.FRAGMENT, GlucoseFragment.class.getName());
+        }else if(filter == ConstantVariable.Category.Profile.id){
+            fragment = new DashboardFragment();
+        }else if(filter == ConstantVariable.Category.Settings.id){
+            fragment = new SettingsFragment();
+
+            args.putString("Profile", selectedProfile.getEmail());
         }
 
 

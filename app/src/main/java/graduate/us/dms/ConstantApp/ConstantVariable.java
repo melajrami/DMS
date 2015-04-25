@@ -30,6 +30,43 @@ public class ConstantVariable {
         }
     }
 
+    public enum Meals {
+        Fast(1),
+        Before_Breakfast(2),
+        After_Breakfast(3),
+        Before_Lunch(4),
+        After_Lunch(5),
+        Before_Dinner(6),
+        After_Dinner(7);
+        public int id;
+
+        private Meals(int id) {
+            this.id = id;
+        }
+
+
+        public static String fromInteger(int x) {
+            switch (x) {
+                case 1:
+                    return "Fast";
+                case 2:
+                    return "Before Breakfast";
+                case 3:
+                    return "After Breakfast";
+                case 4:
+                    return "Before Lunch";
+                case 5:
+                    return "After Lunch";
+                case 6:
+                    return "Before Dinner";
+                case 7:
+                    return "After Dinner";
+            }
+            return null;
+        }
+
+    }
+
     public enum CloudStatus {
         Normal(0),
         NeedUpload(1),

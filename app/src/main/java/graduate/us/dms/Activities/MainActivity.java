@@ -16,6 +16,9 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        String name = getIntent().getStringExtra("Name");
+        String email = getIntent().getStringExtra("Email");
+
         int x = 10;
         toolbar = (Toolbar) findViewById(R.id.activity_main_toolbar);
         toolbar.setTitleTextColor(Color.WHITE);
@@ -24,7 +27,7 @@ public class MainActivity extends BaseActivity {
 
         SetupToolbarShadow();
 
-        Drawable();
+        Drawable(name,email);
         AppLog.i("jma " + x);
     }
 

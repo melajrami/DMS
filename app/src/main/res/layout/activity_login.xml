@@ -73,9 +73,18 @@
 
             <LinearLayout
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="0.6">
 
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:text="Sign Up"
+                    android:textColor="@color/color_Red_700"
+                    android:textSize="25sp"
+                    android:layout_margin="5dp"
+                    android:id="@+id/btn_signUp"
+                    android:gravity="center_vertical" />
             </LinearLayout>
 
             <LinearLayout
@@ -95,6 +104,8 @@
                     fab:fab_colorNormal="@color/colorPrimary_FAB"
                     fab:fab_colorPressed="@color/wallet_highlighted_text_holo_light"
                     fab:fab_colorRipple="@color/wallet_secondary_text_holo_dark" />
+
+
 
             </LinearLayout>
         </LinearLayout>

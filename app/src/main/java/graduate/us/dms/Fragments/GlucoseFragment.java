@@ -2,25 +2,26 @@ package graduate.us.dms.Fragments;
 
 
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.Toast;
 
 import com.melnykov.fab.FloatingActionButton;
 
+import graduate.us.dms.Activities.OneFragmentActivity;
 import graduate.us.dms.R;
+import graduate.us.dms.services.AppAction;
 
 /**
  * Created by MyLabtop on 4/22/2015.
  */
 public class GlucoseFragment extends BaseFragment{
 
-    private RecyclerView mRecyclerView;
-    private RecyclerView.Adapter mAdapter;
-    private RecyclerView.LayoutManager mLayoutManager;
+
     private int position;
+    private EditText et_date,et_time,et_glucose_time,et_glucose_breakfast,et_glucose_remainder,et_glucose_note,et_glucose_reading;
 
 
     @Override
@@ -63,7 +64,7 @@ public class GlucoseFragment extends BaseFragment{
             public void onClick(View v) {
 
                 Toast.makeText(v.getContext(),"Marwan... We Fucked",Toast.LENGTH_LONG).show();
-            //    AppAction.OpenActivityWithFRAGMENT(v.getContext(), OneFragmentActivity.class, NoteFragmentAddEdit.class.getName(),-1);
+                AppAction.OpenActivityWithFRAGMENT(v.getContext(), OneFragmentActivity.class, GlucoseAddFragment.class.getName(), -1);
 
             }
         });
